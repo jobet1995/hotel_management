@@ -42,7 +42,7 @@ class LoginView(TokenObtainPairView):
     pass
 
 class LogoutView(generics.GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
         try:
