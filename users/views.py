@@ -1,9 +1,21 @@
 from rest_framework import generics, permissions, status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 from .serializers import UserSerializer
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'register': reverse('register', request=request, format=format),
+        'login': reverse('login', request=request, format=format),
+        'logout': reverse('logout', request=request, format=format),
+        'users': reverse('user-list', request=request, format=format),
+        'profile': reverse('profile', request=request, format=format),
+    })
 
 class IsAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
